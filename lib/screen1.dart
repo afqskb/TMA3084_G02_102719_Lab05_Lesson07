@@ -6,7 +6,7 @@ import 'package:material_ui/material_ui.dart';
 
 class Car {
   final String make;
-  final String model;
+  final int model;
   final double price;
 
   Car({required this.make, required this.model, required this.price});
@@ -24,9 +24,9 @@ class _Screen1State extends State<Screen1> {
   bool sortAscending = true;
 
   List<Car> cars = [
-    Car(make: 'Toyota', model: 'Camry', price: 28000),
-    Car(make: 'Honda', model: 'Civic', price: 24500),
-    Car(make: 'Ford', model: 'Mustang', price: 32000),
+    Car(make: 'Toyota', model: 2020, price: 28000),
+    Car(make: 'Honda', model: 2019, price: 24500),
+    Car(make: 'Ford', model: 2021, price: 32000),
   ];
 
   void sortBy(int columnIndex, bool ascending, int Function(Car a, Car b) compare) {
@@ -40,9 +40,12 @@ class _Screen1State extends State<Screen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(title: const Text('Cars')),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        child: Padding(
+        padding: const EdgeInsets.only(left: 24),
         child: DataTable(
           sortColumnIndex: sortColumnIndex,
           sortAscending: sortAscending,
@@ -67,12 +70,13 @@ class _Screen1State extends State<Screen1> {
             return DataRow(
               cells: [
                 DataCell(Text(car.make)),
-                DataCell(Text(car.model)),
+                DataCell(Text(car.model.toString())),
                 DataCell(Text('\$${car.price.toStringAsFixed(0)}')),
               ],
             );
           }).toList(),
         ),
+        )
       ),
     );
   }
